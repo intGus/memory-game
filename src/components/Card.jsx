@@ -9,16 +9,14 @@ const StyledCard = styled.div`
   border-radius: 3px;
   border: 2px solid palevioletred;
   color: palevioletred;
-  margin: 0.2em;
-  height: 250px;
-  width: 180px;
+  height: 100%;
+  width: 100%;
   cursor: pointer;
 `
 const StyledImg = styled.img`
   object-fit: cover;
   width: 100%;
   height: 100%;
-  max-height: 100%;
 `
 
 export default function Card (props) {
