@@ -9,7 +9,9 @@ function App() {
     highScore: 0,
   })
   const [clickedCards, setClickedCards] = useState([])
-  const [shuffledArray, setShuffledArray] = useState([ 1,2,3,4,5,6,7,8 ])
+  const [shuffledArray, setShuffledArray] = useState([ 
+    [1, "blue"], [2, "yellow"], [3,"green"], [4, "red"] ,[5,"AntiqueWhite"], [6, "brown"],[7, "blueviolet"], [8, "Azure"]
+  ])
 
   function updateCurrentScore() {
     setScore(prevCurrentScore => {
@@ -44,7 +46,7 @@ function App() {
   }, [clickedCards])
 
   const cards = shuffledArray.map((item) =>
-    <Card key={item.toString()} number={item} click={handleClick} />
+    <Card key={item[0].toString()} number={item[0]} color={item[1]} click={handleClick} />
   )
 
   return (
@@ -53,14 +55,6 @@ function App() {
       <div>Best Score: {score.highScore}</div>
       <Container>
         {cards}
-        {/* <Card number="1" click={handleClick} />
-        <Card number="2" click={handleClick} />
-        <Card color="white" number="3" click={handleClick} />
-        <Card number="4" click={handleClick} />
-        <Card number="5" click={handleClick} />
-        <Card number="6" click={handleClick} />
-        <Card number="7" click={handleClick} />
-        <Card color="yellow" number="8" click={handleClick} /> */}
       </Container>
     </div>
   )
