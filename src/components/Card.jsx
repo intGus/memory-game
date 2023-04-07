@@ -14,6 +14,7 @@ const StyledCard = styled.div`
   cursor: pointer;
 `
 const StyledImg = styled.img`
+  aspect-ratio: 3/4;
   object-fit: cover;
   width: 100%;
   height: 100%;
