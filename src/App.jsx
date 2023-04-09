@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import Modal from 'react-modal'
+import { useEffect } from 'react'
 import Card from './components/Card'
 import Container from './components/Container'
-import { useEffect } from 'react'
+import ModalMsg from './components/ModalMsg'
+
 
 function App() {
   const [score, setScore] = useState({
@@ -10,6 +13,15 @@ function App() {
   })
   const [clickedCards, setClickedCards] = useState([])
   const [shuffledArray, setShuffledArray] = useState(range(8))
+  const [modalIsOpen, setModalIsOpen] = useState(true);
+
+  function displayModal() {
+    setModalIsOpen(true)
+  }
+
+  function closeModal() {
+    setModalIsOpen(false)
+  }
 
   function range(n) {
     return Array.from(Array(n),(x,i)=>i+1)
@@ -68,6 +80,11 @@ function App() {
 
   return (
     <div className="App">
+      <Modal isOpen={modalIsOpen} onRequestClose={()=> closeModal()}>
+        <div onClick={closeModal}>
+          <ModalMsg />
+        </div>
+      </Modal>
       <div>Score: {score.currentScore}</div>
       <div>Best Score: {score.highScore}</div>
       <Container>
