@@ -9,9 +9,11 @@ function App() {
     highScore: 0,
   })
   const [clickedCards, setClickedCards] = useState([])
-  const [shuffledArray, setShuffledArray] = useState([ 
-    [1, "blue"], [2, "yellow"], [3,"green"], [4, "red"] ,[5,"AntiqueWhite"], [6, "brown"],[7, "blueviolet"], [8, "Azure"]
-  ])
+  const [shuffledArray, setShuffledArray] = useState(range(8))
+
+  function range(n) {
+    return Array.from(Array(n),(x,i)=>i+1)
+  }
 
   function updateCurrentScore() {
     setScore(prevCurrentScore => {
@@ -31,22 +33,37 @@ function App() {
     })
   }
 
+  function resetApp() {
+    setClickedCards([])
+      resetScore()
+      setShuffledArray(range(8))
+  }
+
   function handleClick(number) {
-    if (!clickedCards.includes(number)) {
-      setClickedCards([...clickedCards, number])
-      updateCurrentScore()
+    if (clickedCards.includes(number)) {
+      resetApp()
       return
     }
-    setClickedCards([])
-    resetScore()
+    setClickedCards([...clickedCards, number])
+    updateCurrentScore()
   }
 
   useEffect(() => {
-    setShuffledArray([...shuffledArray].sort((a, b) => 0.5 - Math.random()));
+    setShuffledArray([...shuffledArray].sort(() => 0.5 - Math.random()));
   }, [clickedCards])
 
+  useEffect(() => {
+    if (clickedCards.length === shuffledArray.length) {
+      setShuffledArray(range(clickedCards.length + 4))
+      setClickedCards([])
+    } else if (score.currentScore === 140) {
+      console.log('You Won')
+      resetApp()
+    }
+  }, [score])
+
   const cards = shuffledArray.map((item) =>
-    <Card key={item[0].toString()} number={item[0]} color={item[1]} click={handleClick} />
+    <Card key={item.toString()} number={item} click={handleClick} />
   )
 
   return (
