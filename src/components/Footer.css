@@ -1,0 +1,11 @@
+.fa-github:hover {
+  animation: wiggle infinite 1s linear;
+}
+
+@keyframes wiggle {
+  0% {transform: scale(1.2) rotate(0deg);}
+  25% {transform: scale(1.2) rotate(-20deg);}
+  50% {transform: scale(1.2) rotate(0deg);}
+  75% {transform: scale(1.2) rotate(20deg);}
+  100% {transform: scale(1.2) rotate(0deg);}
+}

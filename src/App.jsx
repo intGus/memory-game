@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import Modal from 'react-modal'
 import { useEffect } from 'react'
+import Header from './components/Header'
 import Card from './components/Card'
 import Container from './components/Container'
 import ModalMsg from './components/ModalMsg'
+import Footer from './components/Footer'
 
 
 function App() {
@@ -78,18 +80,30 @@ function App() {
     <Card key={item.toString()} number={item} click={handleClick} />
   )
 
+  const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)',
+      backgroundColor       : '#D3D3D3'      
+    }
+  };
+
   return (
     <div className="App">
-      <Modal isOpen={modalIsOpen} onRequestClose={()=> closeModal()}>
+      <Header score={score.currentScore} highScore={score.highScore} />
+      <Modal style={customStyles} isOpen={modalIsOpen} onRequestClose={()=> closeModal()}>
         <div onClick={closeModal}>
           <ModalMsg />
         </div>
       </Modal>
-      <div>Score: {score.currentScore}</div>
-      <div>Best Score: {score.highScore}</div>
       <Container>
         {cards}
       </Container>
+      <Footer />
     </div>
   )
 }
