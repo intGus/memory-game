@@ -22,7 +22,7 @@ export default function Footer() {
     <StyledFooter>
       intGus || Copyright {new Date().getFullYear()}
       <a href="https://github.com/intgus">
-        <FontAwesomeIcon icon={faGithub} style={{ fontSize: '20px', marginLeft: '10px' }} />
+        <FontAwesomeIcon icon={faGithub} style={{color: 'black', fontSize: '20px', marginLeft: '10px' }} />
       </a>
     </StyledFooter>
   );

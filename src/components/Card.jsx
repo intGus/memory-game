@@ -24,7 +24,7 @@ export default function Card (props) {
   return (
     <StyledCard color={props.color} onClick={()=>props.click(props.number)}>
       <StyledImg src={images[props.number-1]} />
-      This is card # {props.number}
+      {/* This is card # {props.number} */}
     </StyledCard>
   )
 }

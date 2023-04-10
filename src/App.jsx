@@ -9,6 +9,13 @@ import Footer from './components/Footer'
 
 
 function App() {
+
+  // Array generator for card identifiers
+  function range(n) {
+    return Array.from(Array(n),(x,i)=>i+1)
+  }
+
+    // State initialization
   const [score, setScore] = useState({
     currentScore: 0,
     highScore: 0,
@@ -17,17 +24,10 @@ function App() {
   const [shuffledArray, setShuffledArray] = useState(range(8))
   const [modalIsOpen, setModalIsOpen] = useState(true);
 
-  function displayModal() {
-    setModalIsOpen(true)
-  }
-
-  function closeModal() {
-    setModalIsOpen(false)
-  }
-
-  function range(n) {
-    return Array.from(Array(n),(x,i)=>i+1)
-  }
+  // State setters
+  function toggleModal() {
+    setModalIsOpen((prevState) => !prevState)
+    }
 
   function updateCurrentScore() {
     setScore(prevCurrentScore => {
@@ -47,6 +47,7 @@ function App() {
     })
   }
 
+  // Handlers
   function resetApp() {
     setClickedCards([])
       resetScore()
@@ -62,6 +63,7 @@ function App() {
     updateCurrentScore()
   }
 
+  // Effects
   useEffect(() => {
     setShuffledArray([...shuffledArray].sort(() => 0.5 - Math.random()));
   }, [clickedCards])
@@ -70,16 +72,17 @@ function App() {
     if (clickedCards.length === shuffledArray.length) {
       setShuffledArray(range(clickedCards.length + 4))
       setClickedCards([])
-    } else if (score.currentScore === 140) {
-      console.log('You Won')
-      resetApp()
+    } else if (score.currentScore === 140) { // winner
+      toggleModal()
     }
   }, [score])
 
+  // Load shuffled cards into components
   const cards = shuffledArray.map((item) =>
     <Card key={item.toString()} number={item} click={handleClick} />
   )
 
+  // Style for the Modal component
   const customStyles = {
     content : {
       top                   : '50%',
@@ -95,9 +98,9 @@ function App() {
   return (
     <div className="App">
       <Header score={score.currentScore} highScore={score.highScore} />
-      <Modal style={customStyles} isOpen={modalIsOpen} onRequestClose={()=> closeModal()}>
-        <div onClick={closeModal}>
-          <ModalMsg />
+      <Modal style={customStyles} isOpen={modalIsOpen} onAfterClose={(score.currentScore === 140) && resetApp} onRequestClose={()=> toggleModal()}>
+        <div onClick={toggleModal}>
+          <ModalMsg status={(score.currentScore === 140) && 'won'}/>
         </div>
       </Modal>
       <Container>
